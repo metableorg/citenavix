@@ -1,0 +1,21 @@
+
+Items Types:
+
+  Object - a thing with attributes, commands, and child objects. Read-only.
+  Attribute - a named value of an Object. Read-only or Read/Write.
+  Command - an action performed on an Object. Read-only. 
+  Argument - a named value of an input to a command. Read/Write
+ 
+ All Items have a human-readable Name identifier that must be unique within the Item's set of siblings. 
+  
+  
+Special Item:
+  RootObject - the root of the Item hierarchy with empty name a single object named "CiteNavix".
+  
+Actions:
+  Visit - extend the navigated path into an Item.
+  List - View is refreshed with the visited Item's child Items. 
+  Assign - assign a value to an Item. Applies to read/write Items only.
+  Execute - perform the action of an Item. An Item action may be the void result i.e., the result does not change the hierarchy. A non-void
+            result changes the hierarchy.
+

@@ -1,24 +1,28 @@
 package org.metable.citenavix.driver;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-import org.metable.citenavix.domain.Navigable;
-import org.metable.citenavix.domain.SystemRoot;
 import org.metable.citenavix.port.out.ResultPort;
+import org.metable.citenavix.service.CiteNavixRuntime;
 
 public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
 
     private static class ResultView implements ResultPort {
-        private final List<String> resultItems = new ArrayList<>();
 
-        @Override
-        public void giveResult(List<Navigable> navigables) {
-            navigables.forEach(n -> resultItems.add(n.getName()));
+        private String path;
+        private String[] listedItems;
+
+        public String getPath() {
+            return path;
         }
 
-        public boolean contains(String targetItem) {
-            for (String item : this.resultItems) {
+        @Override
+        public void list(String... items) {
+            listedItems = Arrays.copyOf(items, items.length);
+        }
+
+        public boolean listsItem(String targetItem) {
+            for (String item : listedItems) {
                 if (item.equals(targetItem)) {
                     return true;
                 }
@@ -27,14 +31,21 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
             return false;
         }
 
+        @Override
+        public void path(String path) {
+            this.path = path;
+        }
+
+        @Override
+        public void clear() {
+            listedItems = new String[0];
+        }
     }
 
-    private Navigable current;
-
-    private final ResultView resultView;
+    private ResultView resultView;
+    private CiteNavixRuntime runtime;
 
     public DefaultCiteNavixDslDriver() {
-        resultView = new ResultView();
     }
 
     @Override
@@ -46,17 +57,28 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
     }
 
     @Override
-    public void rootLevel() {
-        current = new SystemRoot();
+    public void newCiteNavix() {
+        resultView = new ResultView();
+        runtime = new CiteNavixRuntime(resultView);
+    }
+
+    @Override
+    public boolean pathIs(String path) {
+        return resultView.getPath().equals(path);
     }
 
     @Override
     public boolean resultContains(String item) {
-        return resultView.contains(item);
+        return resultView.listsItem(item);
     }
 
     @Override
-    public void listAction() {
-        resultView.giveResult(current.getActions());
+    public void visit(String itemName) {
+        runtime.visit(itemName);
+    }
+
+    @Override
+    public void listItems() {
+        runtime.list();
     }
 }

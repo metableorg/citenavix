@@ -6,9 +6,13 @@ public interface CiteNavixDslDriver {
 
     void loginUser(String username, String password);
 
-    void rootLevel();
+    void newCiteNavix();
+
+    boolean pathIs(String path);
 
     boolean resultContains(String item);
 
-    void listAction();
+    void visit(String itemName);
+
+    void listItems();
 }

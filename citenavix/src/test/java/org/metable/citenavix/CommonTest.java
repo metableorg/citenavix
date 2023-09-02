@@ -11,6 +11,12 @@ public class CommonTest {
     protected CiteNavixDsl dsl;
     protected CiteNavixDslDriver driver;
 
+    protected void doAfterEachTest() {
+    }
+
+    protected void doBeforeEachTest() {
+    }
+
     @Before
     public void setUp() throws Exception {
         driver = new DefaultCiteNavixDslDriver();
@@ -24,11 +30,5 @@ public class CommonTest {
         driver.dispose();
 
         doAfterEachTest();
-    }
-
-    protected void doAfterEachTest() {
-    }
-
-    protected void doBeforeEachTest() {
     }
 }
