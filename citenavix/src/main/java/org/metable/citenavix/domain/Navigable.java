@@ -11,4 +11,12 @@ public interface Navigable {
     public Navigable getParent();
 
     public String getPath();
+    
+    public boolean assign(String value);
+
+    public void execute();
+    
+    public void addItem(Navigable item);
+
+    public void removeAllItems();
 }

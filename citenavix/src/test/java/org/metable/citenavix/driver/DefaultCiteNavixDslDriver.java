@@ -81,4 +81,14 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
     public void listItems() {
         runtime.list();
     }
+
+    @Override
+    public void assign(String value) {
+        runtime.assign(value);
+    }
+
+    @Override
+    public void execute() {
+        runtime.execute();
+    }
 }

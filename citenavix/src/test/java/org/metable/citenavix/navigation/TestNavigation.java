@@ -1,4 +1,4 @@
-package org.metable.citenavix.action;
+package org.metable.citenavix.navigation;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,8 +19,6 @@ public class TestNavigation extends CommonTest {
     public void test_should_list_citenavix_children_when_path_is_citenavix() {
         // Given
         dsl.newCiteNavix();
-        // And
-        dsl.visit("item: citenavix");
 
         // When
         dsl.listItems();
@@ -37,7 +35,7 @@ public class TestNavigation extends CommonTest {
         dsl.newCiteNavix();
 
         // When
-        dsl.visit("item: new");
+        dsl.visit("path: new");
 
         // Then
         Assert.assertTrue(dsl.pathIs("path: citenavix/new"));

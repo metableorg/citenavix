@@ -2,10 +2,12 @@ package org.metable.citenavix.domain;
 
 public class CiteNavix extends NavigableItem {
 
+    public final static String ROOT = "citenavix";
+
     public CiteNavix() {
-        super(null, "citenavix");
+        super(null, ROOT);
         items.add(new NavigableItem(this, "filter"));
-        items.add(new NavigableItem(this, "new"));
+        items.add(new NewCommand(this));
         items.add(new NavigableItem(this, "search"));
     }
 

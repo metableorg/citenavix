@@ -5,5 +5,7 @@ public interface NavixRuntime {
 
     public void execute();
 
-    public void visit(String itemName);
+    void list();
+
+    public void visit(String path);
 }

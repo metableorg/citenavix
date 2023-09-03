@@ -15,4 +15,8 @@ public interface CiteNavixDslDriver {
     void visit(String itemName);
 
     void listItems();
+
+    void assign(String value);
+
+    void execute();
 }

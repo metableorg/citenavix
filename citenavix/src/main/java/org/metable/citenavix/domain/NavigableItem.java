@@ -10,6 +10,7 @@ public class NavigableItem implements Navigable {
     private final String name;
 
     private final Navigable parent;
+
     public NavigableItem(Navigable parent, String name) {
         this.parent = parent;
         this.name = name;
@@ -35,4 +36,22 @@ public class NavigableItem implements Navigable {
         return getParent().getPath() + "/" + getName();
     }
 
+    @Override
+    public boolean assign(String value) {
+        return false;
+    }
+
+    @Override
+    public void execute() {
+    }
+
+    @Override
+    public void addItem(Navigable item) {
+        items.add(item);
+    }
+
+    @Override
+    public void removeAllItems() {
+        items.clear();
+    }
 }

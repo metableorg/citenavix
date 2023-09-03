@@ -1,5 +1,7 @@
 package org.metable.citenavix.service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +26,12 @@ public class CiteNavixRuntime implements NavixRuntime {
 
     @Override
     public void assign(String value) {
+        current.assign(value);
     }
 
     @Override
     public void execute() {
+        current.execute();
     }
 
     private void updatePath() {
@@ -36,17 +40,33 @@ public class CiteNavixRuntime implements NavixRuntime {
 
     @Override
     public void visit(String itemName) {
-        for (Navigable item : current.getItems()) {
-            if (item.getName().equals(itemName)) {
-                current = item;
-                break;
+        Path path = Paths.get(itemName);
+        visitPath(path);
+    }
+
+    private void visitItem(String itemName) {
+        if (itemName.equals("..")) {
+            current = current.getParent();
+            if (current == null) {
+                current = citeNavix;
+            }
+        } else if (itemName.equals(CiteNavix.ROOT)) {
+            current = citeNavix;
+        } else {
+            for (Navigable item : current.getItems()) {
+                if (item.getName().equals(itemName)) {
+                    current = item;
+                    break;
+                }
             }
         }
 
         resultPort.clear();
+
         updatePath();
     }
 
+    @Override
     public void list() {
         List<String> itemNames = new ArrayList<>();
 
@@ -55,5 +75,9 @@ public class CiteNavixRuntime implements NavixRuntime {
         }
 
         resultPort.list(itemNames.toArray(new String[itemNames.size()]));
+    }
+
+    private void visitPath(Path path) {
+        path.forEach(item -> visitItem(item.toString()));
     }
 }
