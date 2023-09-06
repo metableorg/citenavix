@@ -8,6 +8,8 @@ public interface Navigable {
 
     public String getName();
 
+    public String getLabel();
+
     public Navigable getParent();
 
     public String getPath();
@@ -16,7 +18,7 @@ public interface Navigable {
 
     public void execute();
     
-    public void addItem(Navigable item);
+    public Navigable addItem(Navigable item);
 
     public void removeAllItems();
 }

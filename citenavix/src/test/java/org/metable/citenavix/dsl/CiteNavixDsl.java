@@ -1,6 +1,5 @@
 package org.metable.citenavix.dsl;
 
-import org.metable.citenavix.domain.CiteNavix;
 import org.metable.citenavix.driver.CiteNavixDslDriver;
 
 public class CiteNavixDsl {
@@ -44,15 +43,15 @@ public class CiteNavixDsl {
 
     public void visit(String... args) {
         final Parameters params = new Parameters(args);
-        final String item = params.Optional("path", CiteNavix.ROOT);
-        
+        final String item = params.Optional("path", "citenavix");
+
         driver.visit(item);
     }
 
     public void assign(String... args) {
         final Parameters params = new Parameters(args);
         final String value = params.Optional("value", "");
-        
+
         driver.assign(value);
     }
 

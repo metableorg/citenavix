@@ -11,7 +11,7 @@ Special Item:
     RootObject - the root of the Item hierarchy with empty name a single object named "CiteNavix".
   
 Actions:
-    Visit   - extend the navigated path into an Item.
+    Visit   - visit an Object. The path to the object is from the root "citenavix" object to the currently visited object. 
     List    - View is refreshed with the visited Item's child Items. 
     Assign  - assign a value to an Item. Applies to read/write Items only.
     Execute - perform the action of an Item. An Item action may be the void result i.e., the result does not change the hierarchy. A non-void
@@ -25,3 +25,8 @@ Special symbols
     .   visit current
     ..  visit parent
     /   path separator
+    ?   help
+    
+    + add to list
+    - remove from list
+    [index] update item in list

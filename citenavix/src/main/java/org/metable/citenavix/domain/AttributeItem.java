@@ -1,17 +1,11 @@
 package org.metable.citenavix.domain;
 
-public class NameArgument extends NavigableItem {
+public class AttributeItem extends NavigableItem {
     private String value;
 
-    public NameArgument() {
-        super("name");
-        value = "";
-    }
-
-    @Override
-    public boolean assign(String value) {
+    public AttributeItem(String name, String value) {
+        super(name);
         this.value = value;
-        return false;
     }
 
     public String getValue() {

@@ -3,8 +3,8 @@ package org.metable.citenavix.domain;
 public class TypeArgument extends NavigableItem {
     private String value;
 
-    public TypeArgument(Navigable parent) {
-        super(parent, "type");
+    public TypeArgument() {
+        super("type");
         value = "";
     }
 
@@ -15,7 +15,7 @@ public class TypeArgument extends NavigableItem {
         if (this.value.equals("folder")) {
             getParent().removeAllItems();
             getParent().addItem(this);
-            getParent().addItem(new NameArgument(getParent()));
+            getParent().addItem(new NameArgument());
             return true;
         }
 
@@ -24,5 +24,10 @@ public class TypeArgument extends NavigableItem {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public String getLabel() {
+        return getName() + ": " + getValue();
     }
 }

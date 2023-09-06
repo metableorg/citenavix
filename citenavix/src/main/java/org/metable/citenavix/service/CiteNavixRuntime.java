@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.metable.citenavix.domain.CiteNavix;
 import org.metable.citenavix.domain.Navigable;
 import org.metable.citenavix.port.in.NavixRuntime;
 import org.metable.citenavix.port.out.ResultPort;
@@ -13,15 +12,15 @@ import org.metable.citenavix.port.out.ResultPort;
 public class CiteNavixRuntime implements NavixRuntime {
 
     private final ResultPort resultPort;
-    private final CiteNavix citeNavix;
+    private final Navigable root;
     private Navigable current;
 
-    public CiteNavixRuntime(ResultPort resultPort) {
+    public CiteNavixRuntime(Navigable root, ResultPort resultPort) {
         this.resultPort = resultPort;
-        this.citeNavix = new CiteNavix();
-        this.current = citeNavix;
+        this.root = root;
+        this.current = root;
 
-        resultPort.path(citeNavix.getName());
+        resultPort.path(root.getName());
     }
 
     @Override
@@ -48,10 +47,10 @@ public class CiteNavixRuntime implements NavixRuntime {
         if (itemName.equals("..")) {
             current = current.getParent();
             if (current == null) {
-                current = citeNavix;
+                current = root;
             }
-        } else if (itemName.equals(CiteNavix.ROOT)) {
-            current = citeNavix;
+        } else if (itemName.equals(root.getName())) {
+            current = root;
         } else {
             for (Navigable item : current.getItems()) {
                 if (item.getName().equals(itemName)) {
@@ -68,13 +67,13 @@ public class CiteNavixRuntime implements NavixRuntime {
 
     @Override
     public void list() {
-        List<String> itemNames = new ArrayList<>();
+        List<String> itemLabels = new ArrayList<>();
 
         for (Navigable item : current.getItems()) {
-            itemNames.add(item.getName());
+            itemLabels.add(item.getLabel());
         }
 
-        resultPort.list(itemNames.toArray(new String[itemNames.size()]));
+        resultPort.list(itemLabels.toArray(new String[itemLabels.size()]));
     }
 
     private void visitPath(Path path) {

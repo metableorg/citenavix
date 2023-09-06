@@ -8,7 +8,7 @@ public class TestNewCommand extends CommonTest {
 
     @Test
     public void test_should_create_new_folder_when_new_command_is_executed() {
-        // citenavix/new/type="folder" name="f1" !
+        // input: citenavix/new/type="folder" name="f1" !
 
         // Given
         dsl.newCiteNavix();
