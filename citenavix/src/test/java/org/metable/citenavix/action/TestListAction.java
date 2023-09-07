@@ -23,7 +23,7 @@ public class TestListAction extends CommonTest {
     }
 
     @Test
-    public void test_should_show_command_arguments() {
+    public void test_should_show_command_argument_rollup() {
         // Given
         dsl.newCiteNavix();
         // And
@@ -34,5 +34,34 @@ public class TestListAction extends CommonTest {
 
         // Then
         Assert.assertTrue(dsl.resultContains("item: new: (type: Book Citation, author: Sam Brown, year: 2017)"));
+    }
+
+    @Test
+    public void test_should_show_list_item_rollup() {
+        // Given
+        dsl.newCiteNavix();
+        // And
+        dsl.visit("path: citenavix/AI Research");
+
+        // When
+        dsl.listItems();
+
+        // Then
+        Assert.assertTrue(dsl.resultContains("item: tags: [Artificial Intelligence, Research]"));
+    }
+
+    @Test
+    public void test_should_show_list_items() {
+        // Given
+        dsl.newCiteNavix();
+        // And
+        dsl.visit("path: citenavix/AI Research/tags");
+
+        // When
+        dsl.listItems();
+
+        // Then
+        Assert.assertTrue(dsl.resultContains("item: Artificial Intelligence"));
+        Assert.assertTrue(dsl.resultContains("item: Research"));
     }
 }

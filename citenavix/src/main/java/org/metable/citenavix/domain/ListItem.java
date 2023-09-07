@@ -2,7 +2,7 @@ package org.metable.citenavix.domain;
 
 import java.util.StringJoiner;
 
-public class CommandItem extends NavigableItem {
+public class ListItem extends ObjectItem {
 
     @Override
     public String getLabel() {
@@ -12,11 +12,10 @@ public class CommandItem extends NavigableItem {
             joiner.add(item.getLabel());
         }
 
-        return getName() + ": (" + joiner.toString() + ")";
-
+        return getName() + ": [" + joiner.toString() + "]";
     }
 
-    public CommandItem(String name) {
-        super(name);
+    public ListItem(String name) {
+        super(name, "list");
     }
 }

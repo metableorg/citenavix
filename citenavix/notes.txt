@@ -27,6 +27,15 @@ Special symbols
     /   path separator
     ?   help
     
-    + add to list
-    - remove from list
-    [index] update item in list
+    + new item 
+    - delete item
+    [index] item by index 
+    
+    ABC [folder]
+        new
+            name: "new folder"
+        delete
+        folder: XYZ
+   
+   /ABC/new/name 
+     value=""
