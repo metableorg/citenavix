@@ -3,27 +3,20 @@ package org.metable.citenavix.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigableItem implements Navigable {
+public abstract class NavigableItem implements Navigable {
 
     private final List<Navigable> items;
 
-    private final String name;
-
     private Navigable parent;
 
-    public NavigableItem(String name) {
+    public NavigableItem() {
         this.parent = null;
-        this.name = name;
         this.items = new ArrayList<>();
     }
 
     @Override
     public List<Navigable> getItems() {
         return items;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override
@@ -33,12 +26,7 @@ public class NavigableItem implements Navigable {
 
     @Override
     public String getPath() {
-        return getParent().getPath() + "/" + getName();
-    }
-
-    @Override
-    public boolean assign(String value) {
-        return false;
+        return getParent().getPath() + "/" + getIdentifier();
     }
 
     @Override
@@ -59,6 +47,6 @@ public class NavigableItem implements Navigable {
 
     @Override
     public String getLabel() {
-        return getName();
+        return getIdentifier();
     }
 }

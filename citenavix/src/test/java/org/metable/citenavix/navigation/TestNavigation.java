@@ -24,9 +24,7 @@ public class TestNavigation extends CommonTest {
         dsl.listItems();
 
         // Then
-        Assert.assertTrue(dsl.resultContains("item: filter"));
-        Assert.assertTrue(dsl.resultContains("item: new: (type: )"));
-        Assert.assertTrue(dsl.resultContains("item: search"));
+        Assert.assertTrue(dsl.resultContains("item: new: (name: new folder)"));
     }
 
     @Test

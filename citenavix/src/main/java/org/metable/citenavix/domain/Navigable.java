@@ -5,16 +5,16 @@ import java.util.List;
 public interface Navigable {
 
     public List<Navigable> getItems();
-
-    public String getName();
-
+    
+    public String getIdentifier();
+    
     public String getLabel();
 
     public Navigable getParent();
 
     public String getPath();
     
-    public boolean assign(String value);
+    public void assign(String value);
 
     public void execute();
     

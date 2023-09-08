@@ -6,16 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.metable.citenavix.domain.Navigable;
+import org.metable.citenavix.domain.ObjectItem;
 import org.metable.citenavix.port.in.NavixRuntime;
 import org.metable.citenavix.port.out.ResultPort;
 
 public class CiteNavixRuntime implements NavixRuntime {
 
     private final ResultPort resultPort;
-    private final Navigable root;
+    private final ObjectItem root;
     private Navigable current;
 
-    public CiteNavixRuntime(Navigable root, ResultPort resultPort) {
+    public CiteNavixRuntime(ObjectItem root, ResultPort resultPort) {
         this.resultPort = resultPort;
         this.root = root;
         this.current = root;
@@ -38,22 +39,22 @@ public class CiteNavixRuntime implements NavixRuntime {
     }
 
     @Override
-    public void visit(String itemName) {
-        Path path = Paths.get(itemName);
+    public void visit(String identifier) {
+        Path path = Paths.get(identifier);
         visitPath(path);
     }
 
-    private void visitItem(String itemName) {
-        if (itemName.equals("..")) {
+    private void visitItem(String identifier) {
+        if (identifier.equals("..")) {
             current = current.getParent();
             if (current == null) {
                 current = root;
             }
-        } else if (itemName.equals(root.getName())) {
+        } else if (identifier.equals(root.getIdentifier())) {
             current = root;
         } else {
             for (Navigable item : current.getItems()) {
-                if (item.getName().equals(itemName)) {
+                if (item.getIdentifier().equals(identifier)) {
                     current = item;
                     break;
                 }

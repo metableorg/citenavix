@@ -13,11 +13,7 @@ public class TestNewCommand extends CommonTest {
         // Given
         dsl.newCiteNavix();
         // And
-        dsl.visit("path: ./new/type");
-        // And
-        dsl.assign("value: folder");
-        // And
-        dsl.visit("path: ../name");
+        dsl.visit("path: ./new/name");
         // And
         dsl.assign("value: f1");
         // And

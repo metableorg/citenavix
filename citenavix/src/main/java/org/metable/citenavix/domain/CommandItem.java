@@ -2,7 +2,7 @@ package org.metable.citenavix.domain;
 
 import java.util.StringJoiner;
 
-public class CommandItem extends NavigableItem {
+public class CommandItem extends NavigableNameItem {
 
     @Override
     public String getLabel() {

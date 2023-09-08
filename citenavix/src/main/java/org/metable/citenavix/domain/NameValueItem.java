@@ -1,7 +1,13 @@
 package org.metable.citenavix.domain;
 
-public class NameValueItem extends NavigableItem {
-    public NameValueItem(String name, Navigable value) {
+public class NameValueItem extends NavigableNameItem {
+
+    @Override
+    public void assign(String value) {
+        getValue().assign(value);
+    }
+
+    public NameValueItem(String name, NavigableValueItem value) {
         super(name);
         addItem(value);
     }
@@ -15,12 +21,12 @@ public class NameValueItem extends NavigableItem {
         return super.addItem(item);
     }
 
-    public Navigable getValue() {
-        return getItems().get(0);
+    public NavigableValueItem getValue() {
+        return (NavigableValueItem) getItems().get(0);
     }
 
     @Override
     public String getLabel() {
-        return getName() + ": " + getValue().getName();
+        return getName() + ": " + getValue().getValue();
     }
 }
