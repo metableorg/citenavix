@@ -11,7 +11,7 @@ public class TestListAction extends CommonTest {
         // Given
         dsl.newCiteNavix();
         // And
-        dsl.visit("path: citenavix/AI Research");
+        dsl.visit("path: /AI Research");
 
         // When
         dsl.listItems();
@@ -27,7 +27,7 @@ public class TestListAction extends CommonTest {
         // Given
         dsl.newCiteNavix();
         // And
-        dsl.visit("path: citenavix/AI Research/Natural Language Processing");
+        dsl.visit("path: /AI Research/Natural Language Processing");
 
         // When
         dsl.listItems();
@@ -41,7 +41,7 @@ public class TestListAction extends CommonTest {
         // Given
         dsl.newCiteNavix();
         // And
-        dsl.visit("path: citenavix/AI Research");
+        dsl.visit("path: /AI Research");
 
         // When
         dsl.listItems();
@@ -55,7 +55,7 @@ public class TestListAction extends CommonTest {
         // Given
         dsl.newCiteNavix();
         // And
-        dsl.visit("path: citenavix/AI Research/tags");
+        dsl.visit("path: /AI Research/tags");
 
         // When
         dsl.listItems();

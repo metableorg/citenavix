@@ -35,7 +35,8 @@ public class CiteNavixRuntime implements NavixRuntime {
     }
 
     private void updatePath() {
-        resultPort.path(current.getPath());
+        final String path = current.getPath();
+        resultPort.path(path.isEmpty() ? "/" : path);
     }
 
     @Override
@@ -45,25 +46,34 @@ public class CiteNavixRuntime implements NavixRuntime {
     }
 
     private void visitItem(String identifier) {
+        if (identifier.equals(".")) {
+            return;
+        }
+
         if (identifier.equals("..")) {
             current = current.getParent();
+
             if (current == null) {
                 current = root;
             }
-        } else if (identifier.equals(root.getIdentifier())) {
-            current = root;
-        } else {
-            for (Navigable item : current.getItems()) {
-                if (item.getIdentifier().equals(identifier)) {
-                    current = item;
-                    break;
-                }
+
+            return;
+        }
+
+        Navigable newCurrent = null;
+
+        for (Navigable item : current.getItems()) {
+            if (item.getIdentifier().equals(identifier)) {
+                newCurrent = item;
+                break;
             }
         }
 
-        resultPort.clear();
+        if (newCurrent == null) {
+            throw new java.lang.RuntimeException("Unknown path element: " + identifier);
+        }
 
-        updatePath();
+        current = newCurrent;
     }
 
     @Override
@@ -78,6 +88,13 @@ public class CiteNavixRuntime implements NavixRuntime {
     }
 
     private void visitPath(Path path) {
-        path.forEach(item -> visitItem(item.toString()));
+        if (!path.iterator().hasNext()) {
+            current = root;
+        } else {
+            path.forEach(item -> visitItem(item.toString()));
+        }
+
+        resultPort.clear();
+        updatePath();
     }
 }

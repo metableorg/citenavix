@@ -35,9 +35,18 @@ public abstract class NavigableItem implements Navigable {
 
     @Override
     public Navigable addItem(Navigable item) {
+        checkForUniqeness(item);
         ((NavigableItem) item).parent = this;
         items.add(item);
         return this;
+    }
+
+    private void checkForUniqeness(Navigable targetItem) {
+        for (Navigable item : items) {
+            if (item.getIdentifier().equals(targetItem.getIdentifier())) {
+                throw new java.lang.IllegalArgumentException(targetItem.getIdentifier() + " is not unique.");
+            }
+        }
     }
 
     @Override

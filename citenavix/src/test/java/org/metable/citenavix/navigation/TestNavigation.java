@@ -12,7 +12,7 @@ public class TestNavigation extends CommonTest {
         dsl.newCiteNavix();
 
         // Then
-        Assert.assertTrue(dsl.pathIs("path: citenavix"));
+        Assert.assertTrue(dsl.pathIs("path: /"));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestNavigation extends CommonTest {
         dsl.visit("path: new");
 
         // Then
-        Assert.assertTrue(dsl.pathIs("path: citenavix/new"));
+        Assert.assertTrue(dsl.pathIs("path: /new"));
     }
 
     @Test
@@ -45,22 +45,35 @@ public class TestNavigation extends CommonTest {
         dsl.newCiteNavix();
 
         // When
-        dsl.visit("path: citenavix/AI Research/Natural Language Processing/Paper 2/author");
+        dsl.visit("path: /AI Research/Natural Language Processing/Paper 2/author");
 
         // Then
-        Assert.assertTrue(dsl.pathIs("path: citenavix/AI Research/Natural Language Processing/Paper 2/author"));
+        Assert.assertTrue(dsl.pathIs("path: /AI Research/Natural Language Processing/Paper 2/author"));
     }
 
     @Test
     public void test_should_return_path_to_citation_journal_attribute_when_subproject_relative_path_is_visited() {
         // Given
         dsl.newCiteNavix();
-        dsl.visit("path: citenavix/AI Research/Natural Language Processing/Paper 2/author");
+        dsl.visit("path: /AI Research/Natural Language Processing/Paper 2/author");
 
         // When
         dsl.visit("path: ../journal");
 
         // Then
-        Assert.assertTrue(dsl.pathIs("path: citenavix/AI Research/Natural Language Processing/Paper 2/journal"));
+        Assert.assertTrue(dsl.pathIs("path: /AI Research/Natural Language Processing/Paper 2/journal"));
+    }
+
+    @Test
+    public void test_should_return_to_root_when_path_is_root() {
+        // Given
+        dsl.newCiteNavix();
+        dsl.visit("path: /AI Research/Natural Language Processing/Paper 2/author");
+
+        // When
+        dsl.visit("path: /");
+
+        // Then
+        Assert.assertTrue(dsl.pathIs("path: /"));
     }
 }

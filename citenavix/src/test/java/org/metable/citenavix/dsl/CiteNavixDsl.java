@@ -20,7 +20,7 @@ public class CiteNavixDsl {
 
     public void newCiteNavix() {
         driver.newCiteNavix();
-        driver.visit("citenavix");
+        driver.visit("/");
     }
 
     public boolean pathIs(String... args) {
@@ -43,9 +43,9 @@ public class CiteNavixDsl {
 
     public void visit(String... args) {
         final Parameters params = new Parameters(args);
-        final String item = params.Optional("path", "citenavix");
+        final String path = params.Optional("path", "citenavix");
 
-        driver.visit(item);
+        driver.visit(path);
     }
 
     public void assign(String... args) {
