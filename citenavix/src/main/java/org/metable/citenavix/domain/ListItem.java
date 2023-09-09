@@ -4,6 +4,10 @@ import java.util.StringJoiner;
 
 public class ListItem extends ObjectItem {
 
+    public ListItem(String name) {
+        super(name, "list");
+    }
+
     @Override
     public String getLabel() {
         final StringJoiner joiner = new StringJoiner(", ");
@@ -13,9 +17,5 @@ public class ListItem extends ObjectItem {
         }
 
         return getName() + ": [" + joiner.toString() + "]";
-    }
-
-    public ListItem(String name) {
-        super(name, "list");
     }
 }

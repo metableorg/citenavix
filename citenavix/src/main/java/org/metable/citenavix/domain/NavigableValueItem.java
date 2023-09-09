@@ -8,10 +8,6 @@ public class NavigableValueItem extends NavigableItem {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
     @Override
     public void assign(String value) {
         this.value = value;
@@ -20,5 +16,9 @@ public class NavigableValueItem extends NavigableItem {
     @Override
     public String getIdentifier() {
         return getValue();
+    }
+
+    public String getValue() {
+        return value;
     }
 }

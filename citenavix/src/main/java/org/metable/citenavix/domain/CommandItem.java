@@ -4,6 +4,10 @@ import java.util.StringJoiner;
 
 public class CommandItem extends NavigableNameItem {
 
+    public CommandItem(String name) {
+        super(name);
+    }
+
     @Override
     public String getLabel() {
         final StringJoiner joiner = new StringJoiner(", ");
@@ -14,9 +18,5 @@ public class CommandItem extends NavigableNameItem {
 
         return getName() + ": (" + joiner.toString() + ")";
 
-    }
-
-    public CommandItem(String name) {
-        super(name);
     }
 }

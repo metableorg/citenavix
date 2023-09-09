@@ -10,6 +10,21 @@ public class CiteNavixDsl {
         this.driver = driver;
     }
 
+    public void assign(String... args) {
+        final Parameters params = new Parameters(args);
+        final String value = params.Optional("value", "");
+
+        driver.assign(value);
+    }
+
+    public void execute() {
+        driver.execute();
+    }
+
+    public void listItems() {
+        driver.listItems();
+    }
+
     public void login(String... args) {
         final Parameters params = new Parameters(args);
         final String username = params.Optional("username", "bigfan@gmail.com");
@@ -37,25 +52,10 @@ public class CiteNavixDsl {
         return driver.resultContains(item);
     }
 
-    public void listItems() {
-        driver.listItems();
-    }
-
     public void visit(String... args) {
         final Parameters params = new Parameters(args);
         final String path = params.Optional("path", "citenavix");
 
         driver.visit(path);
-    }
-
-    public void assign(String... args) {
-        final Parameters params = new Parameters(args);
-        final String value = params.Optional("value", "");
-
-        driver.assign(value);
-    }
-
-    public void execute() {
-        driver.execute();
     }
 }

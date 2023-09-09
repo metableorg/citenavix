@@ -34,6 +34,17 @@ public class CiteNavixRuntime implements NavixRuntime {
         current.execute();
     }
 
+    @Override
+    public void list() {
+        List<String> itemLabels = new ArrayList<>();
+
+        for (Navigable item : current.getItems()) {
+            itemLabels.add(item.getLabel());
+        }
+
+        resultPort.list(itemLabels.toArray(new String[itemLabels.size()]));
+    }
+
     private void updatePath() {
         final String path = current.getPath();
         resultPort.path(path.isEmpty() ? "/" : path);
@@ -74,17 +85,6 @@ public class CiteNavixRuntime implements NavixRuntime {
         }
 
         current = newCurrent;
-    }
-
-    @Override
-    public void list() {
-        List<String> itemLabels = new ArrayList<>();
-
-        for (Navigable item : current.getItems()) {
-            itemLabels.add(item.getLabel());
-        }
-
-        resultPort.list(itemLabels.toArray(new String[itemLabels.size()]));
     }
 
     private void visitPath(Path path) {

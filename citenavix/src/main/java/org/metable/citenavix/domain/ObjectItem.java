@@ -8,12 +8,12 @@ public class ObjectItem extends NavigableNameItem {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
-    
     @Override
     public String getLabel() {
         return getName() + " [" + getType() + "]";
+    }
+
+    public String getType() {
+        return type;
     }
 }

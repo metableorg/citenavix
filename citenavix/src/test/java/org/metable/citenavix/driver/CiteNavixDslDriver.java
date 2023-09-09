@@ -2,7 +2,13 @@ package org.metable.citenavix.driver;
 
 public interface CiteNavixDslDriver {
 
+    void assign(String value);
+
     void dispose();
+
+    void execute();
+
+    void listItems();
 
     void loginUser(String username, String password);
 
@@ -13,10 +19,4 @@ public interface CiteNavixDslDriver {
     boolean resultContains(String item);
 
     void visit(String itemName);
-
-    void listItems();
-
-    void assign(String value);
-
-    void execute();
 }

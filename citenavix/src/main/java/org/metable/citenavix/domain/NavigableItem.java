@@ -15,25 +15,6 @@ public abstract class NavigableItem implements Navigable {
     }
 
     @Override
-    public List<Navigable> getItems() {
-        return items;
-    }
-
-    @Override
-    public Navigable getParent() {
-        return parent;
-    }
-
-    @Override
-    public String getPath() {
-        return getParent().getPath() + "/" + getIdentifier();
-    }
-
-    @Override
-    public void execute() {
-    }
-
-    @Override
     public Navigable addItem(Navigable item) {
         checkForUniqeness(item);
         ((NavigableItem) item).parent = this;
@@ -50,12 +31,31 @@ public abstract class NavigableItem implements Navigable {
     }
 
     @Override
-    public void removeAllItems() {
-        items.clear();
+    public void execute() {
+    }
+
+    @Override
+    public List<Navigable> getItems() {
+        return items;
     }
 
     @Override
     public String getLabel() {
         return getIdentifier();
+    }
+
+    @Override
+    public Navigable getParent() {
+        return parent;
+    }
+
+    @Override
+    public String getPath() {
+        return getParent().getPath() + "/" + getIdentifier();
+    }
+
+    @Override
+    public void removeAllItems() {
+        items.clear();
     }
 }

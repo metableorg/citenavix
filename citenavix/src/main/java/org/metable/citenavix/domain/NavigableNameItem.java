@@ -8,10 +8,6 @@ public class NavigableNameItem extends NavigableItem {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
     public void assign(String value) {
         name = value;
@@ -20,5 +16,9 @@ public class NavigableNameItem extends NavigableItem {
     @Override
     public String getIdentifier() {
         return getName();
+    }
+
+    public String getName() {
+        return name;
     }
 }
