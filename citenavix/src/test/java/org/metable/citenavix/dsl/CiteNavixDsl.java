@@ -58,4 +58,8 @@ public class CiteNavixDsl {
 
         driver.visit(path);
     }
+
+    public void printTree() {
+        driver.printTree();
+    }
 }

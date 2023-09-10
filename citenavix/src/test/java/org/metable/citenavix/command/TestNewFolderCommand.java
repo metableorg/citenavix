@@ -46,5 +46,6 @@ public class TestNewFolderCommand extends CommonTest {
 
         // Then
         Assert.assertTrue(dsl.resultContains("item: AI Research Project [folder]"));
+        dsl.printTree();
     }
 }

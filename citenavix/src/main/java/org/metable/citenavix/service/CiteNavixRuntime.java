@@ -97,4 +97,8 @@ public class CiteNavixRuntime implements NavixRuntime {
         resultPort.clear();
         updatePath();
     }
+
+    public void printTree() {
+        resultPort.printTree(current);
+    }
 }

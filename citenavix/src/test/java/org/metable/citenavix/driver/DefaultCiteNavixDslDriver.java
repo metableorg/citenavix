@@ -7,6 +7,7 @@ import org.metable.citenavix.domain.AttributeItem;
 import org.metable.citenavix.domain.CiteNavix;
 import org.metable.citenavix.domain.CommandItem;
 import org.metable.citenavix.domain.ListItem;
+import org.metable.citenavix.domain.Navigable;
 import org.metable.citenavix.domain.NavigableValueItem;
 import org.metable.citenavix.domain.ObjectItem;
 import org.metable.citenavix.port.out.ResultPort;
@@ -46,6 +47,29 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
         @Override
         public void path(String path) {
             this.path = path;
+        }
+
+        @Override
+        public void printTree(Navigable item) {
+            printTree(item, "", true, false);
+        }
+
+        private void printTree(Navigable node, String prefix, boolean isTail, boolean includeValues) {
+
+            if ((!includeValues) && (node instanceof NavigableValueItem)) {
+                return;
+            }
+
+            System.out.println(prefix + (isTail ? "└── " : "├── ") + node.getLabel());
+
+            final int numItems = node.getItems().size();
+
+            for (int i = 0; i < numItems - 1; i++) {
+                printTree(node.getItems().get(i), prefix + (isTail ? "    " : "│   "), false, includeValues);
+            }
+            if (numItems > 0) {
+                printTree(node.getItems().get(numItems - 1), prefix + (isTail ? "    " : "│   "), true, includeValues);
+            }
         }
     }
 
@@ -155,5 +179,10 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
     @Override
     public void visit(String itemName) {
         runtime.visit(itemName);
+    }
+
+    @Override
+    public void printTree() {
+        runtime.printTree();
     }
 }

@@ -19,4 +19,6 @@ public interface CiteNavixDslDriver {
     boolean resultContains(String item);
 
     void visit(String itemName);
+    
+    void printTree();
 }
