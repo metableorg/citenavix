@@ -4,6 +4,10 @@ import java.util.StringJoiner;
 
 public class CommandItem extends NavigableNameItem {
 
+    @Override
+    public void assign(String value) {
+    }
+
     public CommandItem(String name) {
         super(name);
     }
