@@ -7,6 +7,20 @@ import org.metable.citenavix.CommonTest;
 public class TestNavigation extends CommonTest {
 
     @Test
+    public void test_line_separator_should_not_change_path() {
+        // Given
+        dsl.newCiteNavix();
+        dsl.visit("path: /AI Research/Natural Language Processing/Paper 2/author");
+
+        // When
+        dsl.visit("path: " + System.lineSeparator());
+
+        // Then
+        dsl.listItems();
+        Assert.assertTrue(dsl.pathIs("path: /AI Research/Natural Language Processing/Paper 2/author"));
+    }
+
+    @Test
     public void test_should_list_citenavix_children_when_path_is_citenavix() {
         // Given
         dsl.newCiteNavix();
@@ -23,6 +37,9 @@ public class TestNavigation extends CommonTest {
         // Given
         dsl.newCiteNavix();
 
+        // When
+        dsl.listItems();
+
         // Then
         Assert.assertTrue(dsl.pathIs("path: /"));
     }
@@ -36,9 +53,11 @@ public class TestNavigation extends CommonTest {
         dsl.visit("path: /AI Research/Natural Language Processing/Paper 2/author");
 
         // Then
+        dsl.listItems();
         Assert.assertTrue(dsl.pathIs("path: /AI Research/Natural Language Processing/Paper 2/author"));
     }
 
+    @Test
     public void test_should_return_path_to_citation_author_name_value_when_subproject_path_is_visited() {
         // Given
         dsl.newCiteNavix();
@@ -47,6 +66,7 @@ public class TestNavigation extends CommonTest {
         dsl.visit("path: /AI Research/Natural Language Processing/Paper 2/author/Emily Brown");
 
         // Then
+        dsl.listItems();
         Assert.assertTrue(dsl.pathIs("path: /AI Research/Natural Language Processing/Paper 2/author/Emily Brown"));
     }
 
@@ -58,6 +78,7 @@ public class TestNavigation extends CommonTest {
 
         // When
         dsl.visit("path: ../journal");
+        dsl.listItems();
 
         // Then
         Assert.assertTrue(dsl.pathIs("path: /AI Research/Natural Language Processing/Paper 2/journal"));
@@ -70,13 +91,14 @@ public class TestNavigation extends CommonTest {
 
         // When
         dsl.visit("path: new");
+        dsl.listItems();
 
         // Then
         Assert.assertTrue(dsl.pathIs("path: /new"));
     }
 
     @Test
-    public void test_should_return_to_root_when_path_is_root() {
+    public void test_should_return_path_to_root_when_path_is_root() {
         // Given
         dsl.newCiteNavix();
         dsl.visit("path: /AI Research/Natural Language Processing/Paper 2/author");
@@ -85,6 +107,33 @@ public class TestNavigation extends CommonTest {
         dsl.visit("path: /");
 
         // Then
+        dsl.listItems();
         Assert.assertTrue(dsl.pathIs("path: /"));
+    }
+
+    @Test
+    public void test_should_return_path_to_root_when_relative_path_from_root() {
+        // Given
+        dsl.newCiteNavix();
+        dsl.visit("path: /");
+
+        // When
+        dsl.visit("path: ..");
+
+        // Then
+        dsl.listItems();
+        Assert.assertTrue(dsl.pathIs("path: /"));
+    }
+
+    @Test(expected = java.lang.RuntimeException.class)
+    public void test_should_throw_exception_when_path_contains_unknown_element() {
+        // Given
+        dsl.newCiteNavix();
+
+        // When
+        dsl.visit("path: /AI Research/Natural Language Processing/unknown element");
+
+        // Then
+        // See expected above
     }
 }

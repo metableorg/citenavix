@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.metable.citenavix.domain.Navigable;
-import org.metable.citenavix.domain.NavixPath;
 import org.metable.citenavix.domain.ObjectItem;
 import org.metable.citenavix.port.in.NavixRuntime;
 import org.metable.citenavix.port.out.ResultPort;
@@ -35,6 +34,9 @@ public class CiteNavixRuntime implements NavixRuntime {
 
     @Override
     public void list() {
+        resultPort.clear();
+        updatePath();
+
         List<String> itemLabels = new ArrayList<>();
 
         for (Navigable item : current.getItems()) {
@@ -50,16 +52,18 @@ public class CiteNavixRuntime implements NavixRuntime {
     }
 
     @Override
-    public void visit(NavixPath path) {
-        visitPath(path);
-    }
+    public void visit(String item) {
 
-    private void visitItem(String identifier) {
-        if (identifier.equals(".")) {
+        if (item.equals("/")) {
+            current = root;
             return;
         }
 
-        if (identifier.equals("..")) {
+        if (item.equals(".")) {
+            return;
+        }
+
+        if (item.equals("..")) {
             current = current.getParent();
 
             if (current == null) {
@@ -71,29 +75,18 @@ public class CiteNavixRuntime implements NavixRuntime {
 
         Navigable newCurrent = null;
 
-        for (Navigable item : current.getItems()) {
-            if (item.getIdentifier().equals(identifier)) {
-                newCurrent = item;
+        for (Navigable navigable : current.getItems()) {
+            if (navigable.getIdentifier().equals(item)) {
+                newCurrent = navigable;
                 break;
             }
         }
 
         if (newCurrent == null) {
-            throw new java.lang.RuntimeException("Unknown path element: " + identifier);
+            throw new java.lang.RuntimeException("Unknown path element: " + item);
         }
 
         current = newCurrent;
-    }
-
-    private void visitPath(NavixPath path) {
-        if (path.isEmpty()) {
-            current = root;
-        } else {
-            path.forEach(item -> visitItem(item));
-        }
-
-        resultPort.clear();
-        updatePath();
     }
 
     public void printTree() {

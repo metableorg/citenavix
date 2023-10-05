@@ -9,9 +9,9 @@ import org.metable.citenavix.domain.CommandItem;
 import org.metable.citenavix.domain.ListItem;
 import org.metable.citenavix.domain.Navigable;
 import org.metable.citenavix.domain.NavigableValueItem;
-import org.metable.citenavix.domain.NavixPath;
 import org.metable.citenavix.domain.ObjectItem;
 import org.metable.citenavix.port.out.ResultPort;
+import org.metable.citenavix.service.CiteNavixInterpreter;
 import org.metable.citenavix.service.CiteNavixRuntime;
 
 public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
@@ -132,6 +132,7 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
     private ResultView resultView;
 
     private CiteNavixRuntime runtime;
+    private CiteNavixInterpreter interpreter;
 
     public DefaultCiteNavixDslDriver() {
     }
@@ -165,6 +166,7 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
         initialize(citeNavix);
         resultView = new ResultView();
         runtime = new CiteNavixRuntime(citeNavix, resultView);
+        interpreter = new CiteNavixInterpreter(runtime);
     }
 
     @Override
@@ -179,7 +181,7 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
 
     @Override
     public void visit(String path) {
-        runtime.visit(new NavixPath(path));
+        interpreter.interpret(path);
     }
 
     @Override

@@ -3,8 +3,9 @@ package org.metable.citenavix.application;
 import java.util.Scanner;
 
 import org.metable.citenavix.domain.CiteNavix;
-import org.metable.citenavix.domain.NavixPath;
+import org.metable.citenavix.port.in.NavixInterpreter;
 import org.metable.citenavix.port.in.NavixRuntime;
+import org.metable.citenavix.service.CiteNavixInterpreter;
 import org.metable.citenavix.service.CiteNavixRuntime;
 
 public class CiteNavixApplication {
@@ -13,11 +14,13 @@ public class CiteNavixApplication {
         CiteNavix citeNavix = new CiteNavix();
         ConsoleView view = new ConsoleView();
         NavixRuntime runtime = new CiteNavixRuntime(citeNavix, view);
+        NavixInterpreter interpreter = new CiteNavixInterpreter(runtime);
 
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             runtime.list();
+
             String input = scanner.nextLine();
 
             if ("exit".equalsIgnoreCase(input)) {
@@ -34,7 +37,7 @@ public class CiteNavixApplication {
                     String[] value = input.split("=");
                     runtime.assign(value[1]);
                 } else {
-                    runtime.visit(new NavixPath(input));
+                    interpreter.interpret(input);
                 }
             } catch (java.lang.RuntimeException e) {
                 System.out.println(e.getMessage());
