@@ -1,5 +1,4 @@
-
-Items Types:
+Item Types:
     Object    - a thing with attributes, commands, and child objects. Read-only.
     Attribute - a named value of an Object. Read-only or Read/Write.
     Command   - an action performed on an Object. Read-only. 
@@ -17,25 +16,32 @@ Actions:
     Execute - perform the action of an Item. An Item action may be the void result i.e., the result does not change the hierarchy. A non-void
               result changes the hierarchy.
             
-Special symbols
-
+Special Symbols:
     *   list action
-    =   assign action
-    !   execute action
+    =   assign value to an argument or attribute
+    !   execute command
     .   visit current
     ..  visit parent
     /   path separator
     ?   help
-    
-    + new item 
-    - delete item
+    +   new item 
+    -   delete item
     [index] item by index 
     
-    ABC [folder]
-        new
-            name: "new folder"
-        delete
-        folder: XYZ
-   
-   /ABC/new/name 
-     value=""
+Syntax:
+
+    <path> ::= <absolute-path> | <relative-path>
+        <absolute-path> ::= "/" <path-elements>
+        <relative-path> ::= <single-dir> | <path-elements>
+        <single-dir> ::= "." | ".."
+        <path-elements> ::= <element> | <element> "/" <path-elements> | nv-pairs
+        <element> ::= <name> | <single-dir>
+        <nvp-pairs> ::= <nv-pair> | <nv-pair> "," <nv-pairs>
+        <nv-pair> :: = <name> "=" <value>
+        <char> ::= any valid Unix filename character excluding "/"
+        <name> :: <char> | <char> <name> 
+        <value> :: string | float | integer | boolean
+
+Examples:
+  /a/b/new/name="Folder 1"/../!
+

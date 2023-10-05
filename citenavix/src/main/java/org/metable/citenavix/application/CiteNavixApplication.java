@@ -3,6 +3,7 @@ package org.metable.citenavix.application;
 import java.util.Scanner;
 
 import org.metable.citenavix.domain.CiteNavix;
+import org.metable.citenavix.domain.NavixPath;
 import org.metable.citenavix.port.in.NavixRuntime;
 import org.metable.citenavix.service.CiteNavixRuntime;
 
@@ -33,7 +34,7 @@ public class CiteNavixApplication {
                     String[] value = input.split("=");
                     runtime.assign(value[1]);
                 } else {
-                    runtime.visit(input);
+                    runtime.visit(new NavixPath(input));
                 }
             } catch (java.lang.RuntimeException e) {
                 System.out.println(e.getMessage());

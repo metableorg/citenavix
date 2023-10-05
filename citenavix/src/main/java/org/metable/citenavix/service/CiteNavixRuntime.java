@@ -1,11 +1,10 @@
 package org.metable.citenavix.service;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.metable.citenavix.domain.Navigable;
+import org.metable.citenavix.domain.NavixPath;
 import org.metable.citenavix.domain.ObjectItem;
 import org.metable.citenavix.port.in.NavixRuntime;
 import org.metable.citenavix.port.out.ResultPort;
@@ -51,8 +50,7 @@ public class CiteNavixRuntime implements NavixRuntime {
     }
 
     @Override
-    public void visit(String identifier) {
-        Path path = Paths.get(identifier);
+    public void visit(NavixPath path) {
         visitPath(path);
     }
 
@@ -87,11 +85,11 @@ public class CiteNavixRuntime implements NavixRuntime {
         current = newCurrent;
     }
 
-    private void visitPath(Path path) {
-        if (!path.iterator().hasNext()) {
+    private void visitPath(NavixPath path) {
+        if (path.isEmpty()) {
             current = root;
         } else {
-            path.forEach(item -> visitItem(item.toString()));
+            path.forEach(item -> visitItem(item));
         }
 
         resultPort.clear();
