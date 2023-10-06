@@ -33,7 +33,7 @@ public class TestListAction extends CommonTest {
         dsl.listItems();
 
         // Then
-        Assert.assertTrue(dsl.resultContains("item: new: (type: Book Citation, author: Sam Brown, year: 2017)"));
+        Assert.assertTrue(dsl.resultContains("item: new citation: (type: Book Citation, author: Sam Brown, year: 2017)"));
     }
 
     @Test

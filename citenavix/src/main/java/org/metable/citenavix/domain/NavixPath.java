@@ -21,14 +21,14 @@ public final class NavixPath {
     }
 
     private void parse(String path) {
-        final String[] tokens = path.split("/");
+        final String[] tokens = path.strip().split("/");
 
         for (String token : tokens) {
             if (token.isBlank()) {
                 continue;
             }
 
-            pathElements.add(token);
+            pathElements.add(token.strip());
         }
     }
 }

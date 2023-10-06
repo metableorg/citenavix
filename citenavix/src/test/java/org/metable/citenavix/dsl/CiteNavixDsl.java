@@ -54,7 +54,7 @@ public class CiteNavixDsl {
 
     public void visit(String... args) {
         final Parameters params = new Parameters(args);
-        final String path = params.Optional("path", "citenavix");
+        final String path = params.Optional("path", "/");
 
         driver.visit(path);
     }

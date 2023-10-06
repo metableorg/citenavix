@@ -103,7 +103,7 @@ public class DefaultCiteNavixDslDriver implements CiteNavixDslDriver {
                     )
                 )
                 .addItem(new ObjectItem("Natural Language Processing", "sub-project")
-                    .addItem(new CommandItem("new")
+                    .addItem(new CommandItem("new citation")
                         .addItem(new ArgumentItem("type", "Book Citation"))
                         .addItem(new ArgumentItem("author", "Sam Brown"))
                         .addItem(new ArgumentItem("year", "2017"))
