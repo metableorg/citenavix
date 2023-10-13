@@ -33,8 +33,21 @@ public class CiteNavixInterpreter implements NavixInterpreter {
         if (executeAssignment(item)) {
             return;
         }
+        
+        if (executeCommand(item)) {
+            return;
+        }
 
         runtime.visit(item);
+    }
+
+    private boolean executeCommand(String item) {
+        if (item.equals("!")) {
+            runtime.execute();
+            return true;
+        }
+
+        return false;
     }
 
     private boolean executeAssignment(final String item) {

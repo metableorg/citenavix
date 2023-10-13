@@ -29,6 +29,21 @@ public class TestNewFolderCommand extends CommonTest {
     }
 
     @Test
+    public void test_should_create_new_folder_from_agument_assignment_when_new_folder_command_is_executed() {
+        // Given
+        dsl.newCiteNavix();
+
+        // When
+        dsl.visit("path: ./new/name=\"AI Research Project\"/../!");
+        dsl.visit("path: ..");
+        dsl.listItems();
+
+        // Then
+        Assert.assertTrue(dsl.resultContains("item: \"AI Research Project\" [folder]"));
+        dsl.printTree();
+    }
+
+    @Test
     public void test_should_create_new_folder_when_new_folder_command_is_executed() {
         // Given
         dsl.newCiteNavix();
